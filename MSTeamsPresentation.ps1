@@ -1,3 +1,7 @@
+#region Add Webhook
+$webhook = 'https://outlook.office.com/webhook/ad52f8e5-1ed9-40c4-b1a0-0c5f6d62675e@10a6d4fc-3a63-42d9-8a1e-744f8d79928d/IncomingWebhook/125e9663c05740ec92d3cd267b2d05c7/3840f450-6881-442c-8f9e-232ad6c29783'
+#endregion
+
 #region Stop me running everything :)
 break
 #endregion
@@ -47,7 +51,7 @@ $params = @{
     Title       = 'Some Helpful Title'
     Text        = 'Some bumph to give an idea of what stuff is'
     Facts       = $hash
-    WebhookURI  = $webhook
+    WebhookURI  = $OTWebhook
     Colour      = 'Purple'
 }
 
@@ -74,13 +78,6 @@ New-TeamsMessage @params -Button {
 }
 #endregion
 
-#region Adding 2 OpenURI Buttons
-New-TeamsMessage @params -Button {
-    Button -ButtonType OpenURI -ButtonName 'Click Me' -TargetURI 'https://millerb.co.uk'
-    Button -ButtonType OpenURI -ButtonName 'No...Click Me!' -TargetURI 'https://millerb.co.uk'
-}
-#endregion
-
 #region Adding 4 OpenURI Buttons
 New-TeamsMessage @params -Button {
     Button -ButtonType OpenURI -ButtonName 'Click Me' -TargetURI 'https://millerb.co.uk'
@@ -103,5 +100,19 @@ New-TeamsMessage @params -Button {
     Button -ButtonType DateInput -ButtonName 'Choose a Date' -TargetURI 'https://millerb.co.uk'
     Button -ButtonType HttpPost -ButtonName 'POST Stuff' -TargetURI 'https://millerb.co.uk'
     Button -ButtonType OpenURI -ButtonName 'Open Me :)' -TargetURI 'https://millerb.co.uk'
+}
+#endregion
+
+#region Adding Embedded Images
+New-TeamsMessage @params -Image {
+    Image -TargetURI 'http://millerb.co.uk/wp-content/uploads/2017/02/wordpress-logo-square.png' -Title 'Alttext'
+    Image -TargetURI 'http://millerb.co.uk/wp-content/uploads/2018/04/flow-push.png' -Title 'Alttext'
+}
+#endregion
+
+#region Adding a button to view OVF results
+New-TeamsMessage @params -Button {
+    Button -ButtonType OpenURI -ButtonName 'Click Me' -TargetURI 'https://millerb.co.uk' 
+    Button -ButtonType OpenURI -ButtonName 'Pester Results' -TargetURI 'http://millerb.co.uk/wp-content/uploads/2018/05/PresentationResults.html' 
 }
 #endregion
