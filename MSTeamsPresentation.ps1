@@ -105,7 +105,7 @@ New-TeamsMessage @params -Button {
 
 #region Adding Embedded Images
 New-TeamsMessage @params -Image {
-    Image -TargetURI 'http://millerb.co.uk/wp-content/uploads/2017/02/wordpress-logo-square.png' -Title 'Alttext'
+    Image -TargetURI 'http://millerb.co.uk/wp-content/uploads/2018/05/me-small.png' -Title 'Alttext'
     Image -TargetURI 'http://millerb.co.uk/wp-content/uploads/2018/04/flow-push.png' -Title 'Alttext'
 }
 #endregion
