@@ -23,13 +23,6 @@ break
 "Aaahhhhhh ERROR message"   | New-TeamsMessage -WebhookURI $webhook -Color red
 #endregion
 
-#region Variations of blue...because why not
-"This is a message"         | New-TeamsMessage -WebhookURI $webhook -Color skyblue
-"This is another message"   | New-TeamsMessage -WebhookURI $webhook -Color slateblue
-"This is a third message"   | New-TeamsMessage -WebhookURI $webhook -Color teal
-"This is a fourth message"  | New-TeamsMessage -WebhookURI $webhook -Color royalblue
-#endregion
-
 #region Collate some script data that you would like to send to Teams
 $hash = @{
     username    = 'brett.miller'
@@ -51,7 +44,7 @@ $params = @{
     Title       = 'Some Helpful Title'
     Text        = 'Some bumph to give an idea of what stuff is'
     Facts       = $hash
-    WebhookURI  = $OTWebhook
+    WebhookURI  = $Webhook
     Colour      = 'Purple'
 }
 
@@ -107,6 +100,48 @@ New-TeamsMessage @params -Button {
 New-TeamsMessage @params -Image {
     Image -TargetURI 'http://millerb.co.uk/wp-content/uploads/2018/05/me-small.png' -Title 'Alttext'
     Image -TargetURI 'http://millerb.co.uk/wp-content/uploads/2018/04/flow-push.png' -Title 'Alttext'
+}
+#endregion
+
+#region Pester Test Sample
+BeforeAll {
+    $servers = Get-Content C:\Users\brettm\Github\Presentations\Servers.json | ConvertFrom-Json
+}
+
+Describe 'Testing My Server Deployment' {
+    Context 'Check all servers deployed' {
+        It 'Servers should match deployment spec' {
+            (Get-Member -InputObject $servers -MemberType NoteProperty).count | Should -Be '4'
+        }
+    }
+    Context 'Check Server Names' {
+        Get-Member -InputObject $servers -MemberType NoteProperty | Select-Object Name | ForEach-Object {
+            It ("{0} Should Adhere to Naming Policy" -f $_.name) {
+                $_.Name | Should -Match '^\w{2}\w{3}(Win|LNX)\d{3}$'
+            }
+        }
+    }
+    Context 'Check Disk Sizes' {
+        Get-Member -InputObject $servers -MemberType NoteProperty | Select-Object -ExpandProperty name | ForEach-Object {
+            It "$_ should have 500GB System Drive" {
+                $servers.$_.disksize | Should -Be '500'
+            }
+        }
+    }
+    Context 'Check Memory Allocation' {
+        Get-Member -InputObject $servers -MemberType NoteProperty | Select-Object -ExpandProperty name | ForEach-Object {
+            It "$_ should have 16GB Memory at least" {
+                $servers.$_.disksize | Should -BeGreaterThan '15'
+            }
+        }
+    }
+    Context 'Check Server Environment' {
+        Get-Member -InputObject $servers -MemberType NoteProperty | Select-Object -ExpandProperty name | ForEach-Object {
+            It "$_ should be a Production environment" {
+                $servers.$_.Environment | Should -Be 'Production'
+            }
+        }
+    }
 }
 #endregion
 
