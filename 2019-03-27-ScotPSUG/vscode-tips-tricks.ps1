@@ -8,7 +8,7 @@ break
 
     Get-Command -Module Toolbox
 
-    New-Multipass -Path C:\support -FileName testing -Name test1, test2, test3
+    New-Multipass -Path C:\support -FileName testing -Name test1, test2, test3 -force
 
     $pass = Get-MultiPass -Path C:\support\testing.xml
 
