@@ -19,10 +19,10 @@
     Get-Team
 
     # Get members of a team
-    Get-TeamUser -GroupId (Get-Team | Where-Object displayname -like 'scot*').GroupId
+    Get-TeamUser -GroupId (Get-Team | Where-Object displayname -like 'ANZ*').GroupId
 
     # Get channels in a team
-    Get-TeamChannel -GroupId (Get-Team | Where-Object displayname -like 'scot*').GroupId
+    Get-TeamChannel -GroupId (Get-Team | Where-Object displayname -like 'ANZ*').GroupId
 #endregion show command usage
 
 #region Wrapper functions to find groups and channels using strings instead of GUIDs
@@ -83,10 +83,10 @@
 #endregion Wrapper functions
 
 #region show wrapper function usage for usability...
-    'Test Channel 1', 'Test Channel 2', 'Test Channel 3' | New-MSTeamsChannel -TeamName 'scot' | New-TeamChannel
+    'Test Channel 1', 'Test Channel 2', 'Test Channel 3' | New-MSTeamsChannel -TeamName 'ANZPS' | New-TeamChannel
 
     # Get team fun settings showing wrapper function use
-    Get-TeamFunSettings -GroupId (Get-Team | Where-Object displayname -like 'scot*').groupid
+    Get-TeamFunSettings -GroupId (Get-Team | Where-Object displayname -like 'ANZPS*').groupid
     Get-MsTeamsGroupId -TeamName 'scot' | Get-TeamFunSettings
     'scot' | Get-MsTeamsGroupId | Get-TeamFunSettings
 
@@ -109,7 +109,7 @@
 
 #region MSTeams Webhooks
     #region Add Webhook
-    $webhook = 'https://outlook.office.com/webhook/ad52f8e5-1ed9-40c4-b1a0-0c5f6d62675e@10a6d4fc-3a63-42d9-8a1e-744f8d79928d/IncomingWebhook/ad0d5c8eec2e426284e16838adfb70f5/3840f450-6881-442c-8f9e-232ad6c29783'
+    $webhook = 'https://outlook.office.com/webhook/24599b6e-adc3-44ea-b6c1-b6f8906413cc@10a6d4fc-3a63-42d9-8a1e-744f8d79928d/IncomingWebhook/af5868787c9441dcafdb4291486524ed/3840f450-6881-442c-8f9e-232ad6c29783'
     #endregion
 
     #region Send a simple message to a channel
